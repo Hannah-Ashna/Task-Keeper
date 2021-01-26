@@ -4,7 +4,7 @@ Procrastination is a battle most are familiar with. It is also a point that is f
 ### Meet the Team:
 - **[Ethan Wilde:](https://github.com/Akierion)** Project Manager and Head of Documentation
 - **[Hannah Jacob:](https://github.com/Hannah-Ashna)** Deputy Project Manager, Technical Lead and Delivery Manager
-- **Ben Teft:** Software Developer and Head of Market Research
+- **[Ben Teft:](https://github.com/Ben-Teft)** Software Developer and Head of Market Research
 - **[Owen Rennie:](https://github.com/owenrennie99)** Head of System Testing and System Debugger
 - **Simon Fincham:** Head of User Acceptance and System Tester
 
