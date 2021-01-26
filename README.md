@@ -6,5 +6,5 @@ Procrastination is a battle most are familiar with. It is also a point that is f
 - **[Hannah Jacob:](https://github.com/Hannah-Ashna)** Deputy Project Manager, Technical Lead and Delivery Manager
 - **[Ben Teft:](https://github.com/Ben-Teft)** Software Developer and Head of Market Research
 - **[Owen Rennie:](https://github.com/owenrennie99)** Head of System Testing and System Debugger
-- **Simon Fincham:** Head of User Acceptance and System Tester
+- **[Simon Fincham:](https://github.com/simonfincham21)** Head of User Acceptance and System Tester
 
