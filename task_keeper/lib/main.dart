@@ -11,7 +11,7 @@ void main() {
         ),
         body: Center(
           child: Image(
-            image: NetworkImage("https://raw.githubusercontent.com/Hannah-Ashna/Garfield-Spigot-Plugin/main/Screenshots/octogarf.png"),
+            image: AssetImage("Images/TestImage.jpg"),
           ),
         ),
       ),
