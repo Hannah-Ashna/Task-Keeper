@@ -48,3 +48,55 @@ class TaskCardWidget extends StatelessWidget {
     );
   }
 }
+
+class ToDoWidget extends StatelessWidget{
+  final String text;
+  final bool isDone;
+  ToDoWidget({this.text, @required this.isDone});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 24.0,
+        vertical: 8.0,
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 30.0,
+            height: 30.0,
+            margin: EdgeInsets.only(
+              right: 12.0,
+            ),
+            decoration: BoxDecoration(
+              color: isDone ? Colors.grey : Colors.transparent,
+              borderRadius: BorderRadius.circular(6.0),
+              border: isDone? null : Border.all(
+                color: Colors.grey,
+                width: 1.5,
+              ),
+            ),
+            child: isDone ? Icon(Icons.check) : null,
+          ),
+          Text(
+              text ?? "(Unnamed Task)",
+              style: TextStyle(
+                color: isDone ? Colors.black : Colors.grey[600],
+                fontSize: 16.0,
+                fontWeight: isDone ? FontWeight.bold : FontWeight.normal,
+              ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Removes the Glow effect whenever a user tries to scroll
+class NoGlow extends ScrollBehavior{
+  @override
+  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection){
+    return child;
+  }
+}

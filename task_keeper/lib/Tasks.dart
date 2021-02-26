@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_keeper/Widgets.dart';
+import 'package:task_keeper/TaskPage.dart';
 import 'Home.dart';
 import 'Pet.dart';
 import 'PetStore.dart';
@@ -126,12 +127,24 @@ class _TasksState extends State <Tasks> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TaskCardWidget(
-                    title: "Testing custom Title",
-                    desc: "Testing custom desc"
+                  Expanded(
+                    child: ScrollConfiguration(
+                      behavior: NoGlow(),
+                      child: ListView(
+                        children: [
+                          TaskCardWidget(
+                              title: "Testing custom Title",
+                              desc: "Testing custom desc"
+                          ),
+                          TaskCardWidget(),
+                          TaskCardWidget(),
+                          TaskCardWidget(),
+                          TaskCardWidget(),
+                          TaskCardWidget(),
+                        ],
+                      ),
+                    ),
                   ),
-                  TaskCardWidget(),
-                  TaskCardWidget(),
                 ],
               ),
             ],
@@ -142,7 +155,10 @@ class _TasksState extends State <Tasks> {
       // The options menu
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder:(context) => TaskPage()),
+          );
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.blueGrey[900],
