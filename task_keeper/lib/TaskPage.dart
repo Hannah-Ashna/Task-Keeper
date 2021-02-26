@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task_keeper/Tasks.dart';
 import 'package:task_keeper/Widgets.dart';
+import 'package:task_keeper/Database.dart';
+import 'models/List.dart';
 
 class TaskPage extends StatefulWidget{
   @override
@@ -35,8 +36,18 @@ class _TaskPageState extends State<TaskPage> {
                       ),
                       Expanded(
                         child: TextField(
-                          onSubmitted: (value) {
+                          onSubmitted: (value) async{
                             print("Field Value: $value");
+
+                            if(value != ""){
+                              DatabaseTool _dbTool = DatabaseTool();
+                              List newList = List(
+                                title: value,
+                              );
+
+                              await _dbTool.insertList(newList);
+
+                            }
                           },
                           decoration: InputDecoration(
                             hintText: "Enter Task List Title",
