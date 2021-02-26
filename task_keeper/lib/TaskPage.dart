@@ -41,7 +41,7 @@ class _TaskPageState extends State<TaskPage> {
 
                             if(value != ""){
                               DatabaseTool _dbTool = DatabaseTool();
-                              List newList = List(
+                              TaskList newList = TaskList(
                                 title: value,
                               );
 

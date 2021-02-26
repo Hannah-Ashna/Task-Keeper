@@ -1,8 +1,8 @@
-class List {
+class TaskList {
   final int id;
   final String title;
   final String description;
-  List({this.id, this.title, this.description});
+  TaskList({this.id, this.title, this.description});
 
   Map<String, dynamic> toMap(){
     return {

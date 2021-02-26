@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:task_keeper/Widgets.dart';
 import 'package:task_keeper/TaskPage.dart';
+import 'package:task_keeper/Database.dart';
 import 'Home.dart';
 import 'Pet.dart';
 import 'PetStore.dart';
@@ -12,6 +14,9 @@ class Tasks extends StatefulWidget {
 class _TasksState extends State <Tasks> {
   @override
   Widget build(BuildContext context) {
+
+    DatabaseTool _dbTool = DatabaseTool();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[900],
@@ -128,21 +133,23 @@ class _TasksState extends State <Tasks> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: ScrollConfiguration(
-                      behavior: NoGlow(),
-                      child: ListView(
-                        children: [
-                          TaskCardWidget(
-                              title: "Testing custom Title",
-                              desc: "Testing custom desc"
-                          ),
-                          TaskCardWidget(),
-                          TaskCardWidget(),
-                          TaskCardWidget(),
-                          TaskCardWidget(),
-                          TaskCardWidget(),
-                        ],
-                      ),
+                    child: FutureBuilder(
+                      initialData: [],
+                      future: _dbTool.getList(),
+                      builder: (context, snapshot) {
+                        return ScrollConfiguration(
+                          behavior: NoGlow(),
+                          child: ListView.builder(
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context, index) {
+                                return TaskCardWidget(
+                                  title: snapshot.data[index].title,
+                                  desc: snapshot.data[index].description,
+                                );
+                              },
+                            ),
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -158,7 +165,9 @@ class _TasksState extends State <Tasks> {
           Navigator.push(
             context,
             MaterialPageRoute(builder:(context) => TaskPage()),
-          );
+          ).then((value) {
+            setState(() {});
+          });
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.blueGrey[900],

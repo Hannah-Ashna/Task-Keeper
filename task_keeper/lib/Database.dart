@@ -17,8 +17,16 @@ class DatabaseTool {
     );
   }
 
-  Future<void> insertList(List list) async{
+  Future<void> insertList(TaskList list) async{
     Database _db = await database();
     await _db.insert('list', list.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<List<TaskList>> getList() async {
+    Database _db = await database();
+    List<Map<String, dynamic>> listMap = await _db.query('list');
+    return List.generate(listMap.length, (index) {
+      return TaskList(id: listMap[index]['id'], title: listMap[index]['title'], description: listMap[index]['description']);
+    });
   }
 }
