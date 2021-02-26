@@ -9,14 +9,14 @@ class TaskCardWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        vertical: 32.0,
+        vertical: 18.0,
         horizontal: 24.0,
       ),
       margin: EdgeInsets.only(
         top: 16.0,
       ),
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: Color(0xFFFFFCF9),
         borderRadius:BorderRadius.circular(20.0),
       ),
       child: Column(
@@ -57,9 +57,10 @@ class ToDoWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 24.0,
-        vertical: 8.0,
+      padding: EdgeInsets.only(
+        right: 24.0,
+        left: 24.0,
+        bottom: 10.0,
       ),
       child: Row(
         children: [

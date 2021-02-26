@@ -27,7 +27,6 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   void initState(){
-
     if(widget.list != null) {
       // Set visibility to true
       _contentVisible = true;
@@ -46,7 +45,6 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   void dispose(){
-
     _titleFocus.dispose();
     _descFocus.dispose();
     _taskFocus.dispose();
@@ -64,8 +62,7 @@ class _TaskPageState extends State<TaskPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                    top:  24.0,
-                    bottom: 24.0,
+                    top:  30.0,
                   ),
                   child: Row(
                     children: [
@@ -74,7 +71,7 @@ class _TaskPageState extends State<TaskPage> {
                           Navigator.pop(context);
                         },
                         child: Padding(
-                            padding: const EdgeInsets.all(24.0),
+                            padding: const EdgeInsets.all(12.0),
                             child: Icon(Icons.arrow_back),
                         ),
                       ),
@@ -116,27 +113,22 @@ class _TaskPageState extends State<TaskPage> {
                 ),
                 Visibility(
                   visible: _contentVisible,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 12.0,
-                    ),
-                    child: TextField(
-                      focusNode: _descFocus,
-                      onSubmitted: (value) {
-                        if(value != ""){
-                          if(_listID != 0){
-                            _dbTool.updateListDesc(_listID, value);
-                          }
+                  child: TextField(
+                    focusNode: _descFocus,
+                    onSubmitted: (value) {
+                      if(value != ""){
+                        if(_listID != 0){
+                          _dbTool.updateListDesc(_listID, value);
                         }
-                        _taskFocus.requestFocus();
-                      },
-                      controller: TextEditingController()..text = _listDesc,
-                      decoration: InputDecoration(
-                        hintText: "Enter Description for this list ...",
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 24.0,
-                        ),
+                      }
+                      _taskFocus.requestFocus();
+                    },
+                    controller: TextEditingController()..text = _listDesc,
+                    decoration: InputDecoration(
+                      hintText: "Enter Description for this list ...",
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 24.0,
                       ),
                     ),
                   ),
@@ -240,7 +232,7 @@ class _TaskPageState extends State<TaskPage> {
           }
         },
         child: Icon(Icons.delete),
-        backgroundColor: Colors.blueGrey[900],
+        backgroundColor: Color(0xFFEF476F),
       ),
     );
   }

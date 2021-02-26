@@ -18,8 +18,9 @@ class _TasksState extends State <Tasks> {
     DatabaseTool _dbTool = DatabaseTool();
 
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey[900],
+        backgroundColor: Color(0xff26547C),
         title: Text("Tasks",
           style: TextStyle(
             fontFamily: 'Aleo',
@@ -149,9 +150,7 @@ class _TasksState extends State <Tasks> {
                                     MaterialPageRoute(builder: (context) => TaskPage(
                                       list: snapshot.data[index],
                                     )),
-                                  ).then((value){
-                                    setState(() {});
-                                  });
+                                  ).then((value){setState(() {});});
                                 },
                                 child: TaskCardWidget(
                                   title: snapshot.data[index].title,
@@ -182,7 +181,7 @@ class _TasksState extends State <Tasks> {
           });
         },
         child: Icon(Icons.add),
-        backgroundColor: Colors.blueGrey[900],
+        backgroundColor: Color(0xFFEF476F),
       ),
     );
   }

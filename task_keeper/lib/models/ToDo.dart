@@ -4,6 +4,7 @@ class ToDo{
   final int taskID;
   final int isDone;
 
+  // Class Constructor
   ToDo({this.id, this.title, this.taskID, this.isDone});
 
   Map<String, dynamic> toMap(){
