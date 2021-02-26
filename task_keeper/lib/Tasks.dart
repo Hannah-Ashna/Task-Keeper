@@ -140,14 +140,23 @@ class _TasksState extends State <Tasks> {
                         return ScrollConfiguration(
                           behavior: NoGlow(),
                           child: ListView.builder(
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (context, index) {
-                                return TaskCardWidget(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => TaskPage(
+                                      list: snapshot.data[index],
+                                    )),
+                                  );
+                                },
+                                child: TaskCardWidget(
                                   title: snapshot.data[index].title,
-                                  desc: snapshot.data[index].description,
-                                );
+                                ),
+                              );
                               },
-                            ),
+                          ),
                         );
                       },
                     ),
@@ -164,7 +173,7 @@ class _TasksState extends State <Tasks> {
         onPressed: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder:(context) => TaskPage()),
+            MaterialPageRoute(builder:(context) => TaskPage(list: null)),
           ).then((value) {
             setState(() {});
           });

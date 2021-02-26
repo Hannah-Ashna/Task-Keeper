@@ -2,13 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:task_keeper/Widgets.dart';
 import 'package:task_keeper/Database.dart';
 import 'models/List.dart';
+import 'models/ToDo.dart';
 
 class TaskPage extends StatefulWidget{
+  final TaskList list;
+  TaskPage({@required this.list});
+
   @override
   _TaskPageState createState() => _TaskPageState();
 }
 
 class _TaskPageState extends State<TaskPage> {
+  DatabaseTool _dbTool = DatabaseTool();
+
+  int _listID = 0;
+  String _listTitle = "";
+
+  @override
+  void initState(){
+
+    if(widget.list != null){
+      _listTitle = widget.list.title;
+      _listID = widget.list.id;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -39,16 +58,19 @@ class _TaskPageState extends State<TaskPage> {
                           onSubmitted: (value) async{
                             print("Field Value: $value");
 
+                            // Check if field is null
                             if(value != ""){
-                              DatabaseTool _dbTool = DatabaseTool();
-                              TaskList newList = TaskList(
-                                title: value,
-                              );
-
-                              await _dbTool.insertList(newList);
-
+                              // Check if list is null
+                              if(widget.list == null) {
+                                DatabaseTool _dbTool = DatabaseTool();
+                                TaskList newList = TaskList(title: value);
+                                await _dbTool.insertList(newList);
+                              } else {
+                                // Update the existing ask
+                              }
                             }
                           },
+                          controller: TextEditingController()..text = _listTitle,
                           decoration: InputDecoration(
                             hintText: "Enter Task List Title",
                             border: InputBorder.none,
@@ -80,20 +102,80 @@ class _TaskPageState extends State<TaskPage> {
                     ),
                   ),
                 ),
-                ToDoWidget(
-                  text: "Create your first task",
-                  isDone: false,
+                FutureBuilder(
+                  initialData: [],
+                  future: _dbTool.getTask(_listID),
+                  builder: (context, snapshot) {
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: (){
+                              // Switch the the to do
+                            },
+                            child: ToDoWidget(
+                              text: snapshot.data[index].title,
+                              isDone: snapshot.data[index].isDone == 0 ? false : true,
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
-                ToDoWidget(
-                  text: "Create your second task",
-                  isDone: true,
-                ),
-                ToDoWidget(
-                  isDone: false,
-                ),
-                ToDoWidget(
-                  isDone: true,
-                ),
+                Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.0,
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 30.0,
+                            height: 30.0,
+                            margin: EdgeInsets.only(
+                              right: 12.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(6.0),
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 1.5,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: TextField(
+                              onSubmitted: (value) async{
+                                // Check if field is null
+                                if(value != ""){
+                                  // Check if list is null
+                                  if(widget.list != null) {
+                                    ToDo newToDo = ToDo(
+                                      title: value,
+                                      isDone: 0,
+                                      taskID: widget.list.id,
+                                    );
+                                    await _dbTool.insertTask(newToDo);
+                                    setState(() {});
+                                    print("creating to do");
+                                  } else {
+                                    // Update the existing ask
+                                    print("noo");
+                                  }
+                                }
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Enter to-do item ...',
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+
               ],
             ),
           ],
