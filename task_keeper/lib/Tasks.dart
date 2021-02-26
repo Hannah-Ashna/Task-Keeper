@@ -149,10 +149,13 @@ class _TasksState extends State <Tasks> {
                                     MaterialPageRoute(builder: (context) => TaskPage(
                                       list: snapshot.data[index],
                                     )),
-                                  );
+                                  ).then((value){
+                                    setState(() {});
+                                  });
                                 },
                                 child: TaskCardWidget(
                                   title: snapshot.data[index].title,
+                                  desc: snapshot.data[index].description,
                                 ),
                               );
                               },

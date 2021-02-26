@@ -35,7 +35,7 @@ class TaskCardWidget extends StatelessWidget {
               top: 10.0,
             ),
             child: Text(
-              desc ?? "Hello User! Welcome to Task Keeper; ready to be productive?",
+              desc ?? "No Description ...",
               style: TextStyle(
                 fontSize: 16.0,
                 color: Colors.black87,
@@ -79,13 +79,15 @@ class ToDoWidget extends StatelessWidget{
             ),
             child: isDone ? Icon(Icons.check) : null,
           ),
-          Text(
-              text ?? "(Unnamed Task)",
-              style: TextStyle(
-                color: isDone ? Colors.black : Colors.grey[600],
-                fontSize: 16.0,
-                fontWeight: isDone ? FontWeight.bold : FontWeight.normal,
-              ),
+          Flexible(
+            child: Text(
+                text ?? "(Unnamed Task)",
+                style: TextStyle(
+                  color: isDone ? Colors.black : Colors.grey[600],
+                  fontSize: 16.0,
+                  fontWeight: isDone ? FontWeight.bold : FontWeight.normal,
+                ),
+            ),
           ),
         ],
       ),

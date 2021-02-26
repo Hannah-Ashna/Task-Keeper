@@ -17,15 +17,40 @@ class _TaskPageState extends State<TaskPage> {
 
   int _listID = 0;
   String _listTitle = "";
+  String _listDesc = "";
+
+  FocusNode _titleFocus;
+  FocusNode _descFocus;
+  FocusNode _taskFocus;
+
+  bool _contentVisible = false;
 
   @override
   void initState(){
 
-    if(widget.list != null){
+    if(widget.list != null) {
+      // Set visibility to true
+      _contentVisible = true;
+
       _listTitle = widget.list.title;
+      _listDesc = widget.list.description;
       _listID = widget.list.id;
     }
+
+    _titleFocus = FocusNode();
+    _descFocus = FocusNode();
+    _taskFocus = FocusNode();
+
     super.initState();
+  }
+
+  @override
+  void dispose(){
+
+    _titleFocus.dispose();
+    _descFocus.dispose();
+    _taskFocus.dispose();
+    super.dispose();
   }
 
   @override
@@ -55,19 +80,23 @@ class _TaskPageState extends State<TaskPage> {
                       ),
                       Expanded(
                         child: TextField(
+                          focusNode: _titleFocus,
                           onSubmitted: (value) async{
-                            print("Field Value: $value");
-
                             // Check if field is null
                             if(value != ""){
                               // Check if list is null
                               if(widget.list == null) {
-                                DatabaseTool _dbTool = DatabaseTool();
                                 TaskList newList = TaskList(title: value);
-                                await _dbTool.insertList(newList);
+                                _listID = await _dbTool.insertList(newList);
+                                setState(() {
+                                  _contentVisible = true;
+                                  _listTitle = value;
+                                });
                               } else {
-                                // Update the existing ask
+                                await _dbTool.updateListTitle(_listID, value);
                               }
+
+                              _descFocus.requestFocus();
                             }
                           },
                           controller: TextEditingController()..text = _listTitle,
@@ -85,97 +114,118 @@ class _TaskPageState extends State<TaskPage> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    bottom: 12.0,
-                  ),
-                  child: TextField(
-                    onSubmitted: (value) {
-                      print("Field Value: $value");
-                    },
-                    decoration: InputDecoration(
-                      hintText: "Enter Description for this list ...",
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 24.0,
+                Visibility(
+                  visible: _contentVisible,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 12.0,
+                    ),
+                    child: TextField(
+                      focusNode: _descFocus,
+                      onSubmitted: (value) {
+                        if(value != ""){
+                          if(_listID != 0){
+                            _dbTool.updateListDesc(_listID, value);
+                          }
+                        }
+                        _taskFocus.requestFocus();
+                      },
+                      controller: TextEditingController()..text = _listDesc,
+                      decoration: InputDecoration(
+                        hintText: "Enter Description for this list ...",
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 24.0,
+                        ),
                       ),
                     ),
                   ),
                 ),
-                FutureBuilder(
-                  initialData: [],
-                  future: _dbTool.getTask(_listID),
-                  builder: (context, snapshot) {
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: (){
-                              // Switch the the to do
-                            },
-                            child: ToDoWidget(
-                              text: snapshot.data[index].title,
-                              isDone: snapshot.data[index].isDone == 0 ? false : true,
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
-                Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 24.0,
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 30.0,
-                            height: 30.0,
-                            margin: EdgeInsets.only(
-                              right: 12.0,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(6.0),
-                              border: Border.all(
-                                color: Colors.grey,
-                                width: 1.5,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: TextField(
-                              onSubmitted: (value) async{
-                                // Check if field is null
-                                if(value != ""){
-                                  // Check if list is null
-                                  if(widget.list != null) {
-                                    ToDo newToDo = ToDo(
-                                      title: value,
-                                      isDone: 0,
-                                      taskID: widget.list.id,
-                                    );
-                                    await _dbTool.insertTask(newToDo);
-                                    setState(() {});
-                                    print("creating to do");
-                                  } else {
-                                    // Update the existing ask
-                                    print("noo");
-                                  }
+                Visibility(
+                  visible: _contentVisible,
+                  child: FutureBuilder(
+                    initialData: [],
+                    future: _dbTool.getTask(_listID),
+                    builder: (context, snapshot) {
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () async{
+                                if(snapshot.data[index].isDone == 0){
+                                  await _dbTool.updateTaskComplete(snapshot.data[index].id, 1);
+                                } else {
+                                  await _dbTool.updateTaskComplete(snapshot.data[index].id, 0);
                                 }
+                                setState(() {});
                               },
-                              decoration: InputDecoration(
-                                hintText: 'Enter to-do item ...',
-                                border: InputBorder.none,
+                              child: ToDoWidget(
+                                text: snapshot.data[index].title,
+                                isDone: snapshot.data[index].isDone == 0 ? false : true,
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Visibility(
+                  visible: _contentVisible,
+                  child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24.0,
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 30.0,
+                              height: 30.0,
+                              margin: EdgeInsets.only(
+                                right: 12.0,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(6.0),
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 1.5,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: TextField(
+                                focusNode: _taskFocus,
+                                controller: TextEditingController()..text = "",
+                                onSubmitted: (value) async{
+                                  // Check if field is null
+                                  if(value != ""){
+                                    // Check if list is null
+                                    if(_listID != 0) {
+                                      ToDo newToDo = ToDo(
+                                        title: value,
+                                        isDone: 0,
+                                        taskID: _listID,
+                                      );
+                                      await _dbTool.insertTask(newToDo);
+                                      setState(() {});
+                                      _taskFocus.requestFocus();
+                                    } else {
+                                      print("Error creating task item");
+                                    }
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  hintText: 'Enter to-do item ...',
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-
+                )
               ],
             ),
           ],
@@ -183,13 +233,13 @@ class _TaskPageState extends State<TaskPage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder:(context) => TaskPage()),
-          );
+        onPressed: () async {
+          if(_listID != 0){
+            await _dbTool.deleteList(_listID);
+            Navigator.pop(context);
+          }
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.delete),
         backgroundColor: Colors.blueGrey[900],
       ),
     );
