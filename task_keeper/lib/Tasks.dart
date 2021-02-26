@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:task_keeper/Widgets.dart';
 import 'Home.dart';
 import 'Pet.dart';
 import 'PetStore.dart';
 
-class Tasks extends StatelessWidget {
+class Tasks extends StatefulWidget {
+  @override
+  _TasksState createState() => _TasksState();
+}
+class _TasksState extends State <Tasks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,6 +110,42 @@ class Tasks extends StatelessWidget {
             ),
           ],
         ),
+      ),
+
+      // The Actual To-do list content
+      body: Center(
+        child: Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(
+            bottom: 16.0,
+            left: 15.0,
+            right: 15.0,
+          ),
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TaskCardWidget(
+                    title: "Testing custom Title",
+                    desc: "Testing custom desc"
+                  ),
+                  TaskCardWidget(),
+                  TaskCardWidget(),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+
+      // The options menu
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.blueGrey[900],
       ),
     );
   }
