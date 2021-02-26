@@ -35,6 +35,9 @@ class _TaskPageState extends State<TaskPage> {
                       ),
                       Expanded(
                         child: TextField(
+                          onSubmitted: (value) {
+                            print("Field Value: $value");
+                          },
                           decoration: InputDecoration(
                             hintText: "Enter Task List Title",
                             border: InputBorder.none,
@@ -54,6 +57,9 @@ class _TaskPageState extends State<TaskPage> {
                     bottom: 12.0,
                   ),
                   child: TextField(
+                    onSubmitted: (value) {
+                      print("Field Value: $value");
+                    },
                     decoration: InputDecoration(
                       hintText: "Enter Description for this list ...",
                       border: InputBorder.none,
