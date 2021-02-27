@@ -38,7 +38,7 @@ class TaskCardWidget extends StatelessWidget {
               desc ?? "No Description ...",
               style: TextStyle(
                 fontSize: 16.0,
-                color: Colors.black87,
+                color: Colors.black54,
                 height: 1.5,
               ),
             ),
@@ -71,14 +71,14 @@ class ToDoWidget extends StatelessWidget{
               right: 12.0,
             ),
             decoration: BoxDecoration(
-              color: isDone ? Colors.grey : Colors.transparent,
+              color: isDone ? Color(0xff06D6A0) : Colors.transparent,
               borderRadius: BorderRadius.circular(6.0),
               border: isDone? null : Border.all(
-                color: Colors.grey,
+                color: Colors.black45,
                 width: 1.5,
               ),
             ),
-            child: isDone ? Icon(Icons.check) : null,
+            child: isDone ? Icon(Icons.check, color: Colors.white) : null,
           ),
           Flexible(
             child: Text(
