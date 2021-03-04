@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'Home.dart';
 import 'Tasks.dart';
 import 'PetStore.dart';
 
@@ -33,24 +32,6 @@ class Pet extends StatelessWidget {
                     fit: BoxFit.cover
                 ),
               ),
-            ),
-
-            ListTile(
-              title: Text('Home',
-                style: TextStyle(
-                    fontFamily: 'Aleo',
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.0,
-                    color: Colors.black
-                ),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder:(context) => Home()),
-                );
-              },
             ),
 
             ListTile(

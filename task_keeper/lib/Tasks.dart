@@ -3,7 +3,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:task_keeper/Widgets.dart';
 import 'package:task_keeper/TaskPage.dart';
 import 'package:task_keeper/Database.dart';
-import 'Home.dart';
 import 'Pet.dart';
 import 'PetStore.dart';
 
@@ -44,24 +43,6 @@ class _TasksState extends State <Tasks> {
                     fit: BoxFit.cover
                 ),
               ),
-            ),
-
-            ListTile(
-              title: Text('Home',
-                style: TextStyle(
-                    fontFamily: 'Aleo',
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.0,
-                    color: Colors.black
-                ),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder:(context) => Home()),
-                );
-              },
             ),
 
             ListTile(

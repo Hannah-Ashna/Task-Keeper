@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Home.dart';
+import 'package:task_keeper/Tasks.dart';
 
 class MainPage extends StatelessWidget {
   @override
@@ -29,7 +29,7 @@ class MainPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder:(context) => Home()),
+                    MaterialPageRoute(builder:(context) => Tasks()),
                   );
                 },
               ),
