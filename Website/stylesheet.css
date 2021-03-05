@@ -51,4 +51,7 @@ body {
   color: #fff;
   border-bottom-color: #fff;
 }
-#more {display: none;}
+
+.lead{
+	text-align:left;
+}
