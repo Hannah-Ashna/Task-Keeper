@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
+  charts_flutter: ^0.8.1
 
   sqflite:
   path:

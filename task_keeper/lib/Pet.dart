@@ -1,8 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:task_keeper/PetChart.dart';
 import 'Tasks.dart';
 import 'PetStore.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:task_keeper/PetDataModel.dart';
+import 'package:flutter/material.dart';
 
 class Pet extends StatelessWidget {
+  final List<PetDataModel> data = [
+    PetDataModel(
+      title: "Hunger",
+      value: 20,
+      barColor: charts.ColorUtil.fromDartColor(Colors.red),
+    ),
+    PetDataModel(
+      title: "Thirst",
+      value: 20,
+      barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+    ),
+    PetDataModel(
+      title: "Happiness",
+      value: 20,
+      barColor: charts.ColorUtil.fromDartColor(Colors.green),
+    ),
+  ];
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,6 +111,10 @@ class Pet extends StatelessWidget {
             ),
           ],
         ),
+      ),
+
+      body: Center(
+        child: PetChart(data: data),
       ),
     );
   }
