@@ -5,8 +5,15 @@ import 'PetStore.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:task_keeper/PetDataModel.dart';
 
-class Pet extends StatelessWidget {
-  final List<PetDataModel> data = [
+
+class Pet extends StatefulWidget {
+  @override
+  _MyPetState createState() => _MyPetState();
+}
+
+class _MyPetState extends State<Pet> {
+
+  List<PetDataModel> data = [
     PetDataModel(
       title: "Hunger",
       value: 20,
@@ -117,7 +124,7 @@ class Pet extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: EdgeInsets.all(15),
-              child: Image.asset("Images/Pet.png", width: 250, height: 250),
+              child: Image.asset("Images/Pet.gif", width: 250, height: 250),
             ),
 
             Container(
@@ -134,24 +141,33 @@ class Pet extends StatelessWidget {
                       children: <Widget>[
                         FlatButton(
                           height: 60,
-                          minWidth: 60,
+                          minWidth: 115,
                           child: Text("FOOD"),
-                          color: Color(0xFFEF476F),
-                          onPressed: () {/** */},
+                          color: Colors.black87,
+                          onPressed: () async {
+                            data[0].value -= 2;
+                            setState(() {});
+                          },
                         ),
                         FlatButton(
                           height: 60,
-                          minWidth: 60,
+                          minWidth: 115,
                           child: Text("WATER"),
-                          color: Color(0xFFEF476F),
-                          onPressed: () {/** */},
+                          color: Colors.black87,
+                          onPressed: () async {
+                            data[1].value -= 2;
+                            setState(() {});
+                          },
                         ),
                         FlatButton(
                           height: 60,
-                          minWidth: 60,
+                          minWidth: 115,
                           child: Text("TOYS"),
-                          color: Color(0xFFEF476F),
-                          onPressed: () {},
+                          color: Colors.black87,
+                          onPressed: () async {
+                            data[2].value -= 2;
+                            setState(() {});
+                          },
                         ),
                       ],
                     ),

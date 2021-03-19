@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class PetDataModel {
   final String title;
-  final int value;
+  int value;
   final charts.Color barColor;
   final charts.Color bgColor = charts.ColorUtil.fromDartColor(Colors.red);
 
