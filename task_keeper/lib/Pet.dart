@@ -4,7 +4,6 @@ import 'Tasks.dart';
 import 'PetStore.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:task_keeper/PetDataModel.dart';
-import 'package:flutter/material.dart';
 
 class Pet extends StatelessWidget {
   final List<PetDataModel> data = [
@@ -114,7 +113,54 @@ class Pet extends StatelessWidget {
       ),
 
       body: Center(
-        child: PetChart(data: data),
+        child: new Column (
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.all(15),
+              child: Image.asset("Images/Pet.png", width: 250, height: 250),
+            ),
+
+            Container(
+              child: PetChart(data: data),
+            ),
+
+            Container(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: new ButtonBar(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        FlatButton(
+                          height: 60,
+                          minWidth: 60,
+                          child: Text("FOOD"),
+                          color: Color(0xFFEF476F),
+                          onPressed: () {/** */},
+                        ),
+                        FlatButton(
+                          height: 60,
+                          minWidth: 60,
+                          child: Text("WATER"),
+                          color: Color(0xFFEF476F),
+                          onPressed: () {/** */},
+                        ),
+                        FlatButton(
+                          height: 60,
+                          minWidth: 60,
+                          child: Text("TOYS"),
+                          color: Color(0xFFEF476F),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
