@@ -11,6 +11,10 @@ dependencies:
   cupertino_icons: ^1.0.0
   charts_flutter: ^0.8.1
 
+  # Firebase - Flutter
+  firebase_core: "0.5.0"
+  firebase_auth: "^0.18.0+1"
+
   sqflite:
   path:
 

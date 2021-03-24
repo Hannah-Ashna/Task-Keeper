@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "40538728578",
+    "project_id": "taskkeeperlogin",
+    "storage_bucket": "taskkeeperlogin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40538728578:android:ac7927bdfe8bd79309ac9b",
+        "android_client_info": {
+          "package_name": "com.example.task_keeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40538728578-5r3mlo2hfo5r3ef8rrrt2u8kndd50fng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmxqifHfZYc3i36Jw5d1jfRVsPNblnryY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40538728578-5r3mlo2hfo5r3ef8rrrt2u8kndd50fng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
