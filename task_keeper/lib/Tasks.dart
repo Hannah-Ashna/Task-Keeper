@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:task_keeper/Widgets.dart';
@@ -81,21 +82,36 @@ class _TasksState extends State <Tasks> {
             ),
 
             ListTile(
-              title: Text('Pet Store',
-                style: TextStyle(
-                    fontFamily: 'Aleo',
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.0,
-                    color: Colors.black
+                title: Text('Pet Store',
+                  style: TextStyle(
+                      fontFamily: 'Aleo',
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black
+                  ),
                 ),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder:(context) => PetStore()),
-                );
-              }
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder:(context) => PetStore()),
+                  );
+                }
+            ),
+
+            ListTile(
+                title: Text('Sign Out',
+                  style: TextStyle(
+                      fontFamily: 'Aleo',
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black
+                  ),
+                ),
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
+                }
             ),
           ],
         ),
