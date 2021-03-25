@@ -40,68 +40,69 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold (
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 10.0,
-          bottom: 10.0,
-          right: 16.0,
-          left: 16.0,
-        ),
-        child: Column (
-
-          children: [
-            Image(
-              image: AssetImage("Images/TKLogo.png"),
-            ),
-            TextField(
-              onChanged: (value){
-                _email = value;
-              },
-              decoration: InputDecoration(
-                hintText: "Enter Email..."
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 10.0,
+            bottom: 10.0,
+            right: 16.0,
+            left: 16.0,
+          ),
+          child: Column (
+            children: [
+              Image(
+                image: AssetImage("Images/TKLogo.png"),
               ),
-            ),
-
-            TextField(
-              onChanged: (value){
-                _password = value;
-              },
-              decoration: InputDecoration(
-                hintText: "Enter Password..."
-              ),
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 8.0,
-                    bottom: 8.0,
-                    right: 4.0,
-                  ),
-                  child: FlatButton(
-                    child: Text("Login"),
-                    onPressed: _loginUser,
-                    color: Color(0xFFEF476F),
-                  ),
+              TextField(
+                onChanged: (value){
+                  _email = value;
+                },
+                decoration: InputDecoration(
+                  hintText: "Enter Email..."
                 ),
+              ),
 
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 8.0,
-                    bottom: 8.0,
-                    left: 4.0,
+              TextField(
+                onChanged: (value){
+                  _password = value;
+                },
+                decoration: InputDecoration(
+                  hintText: "Enter Password..."
+                ),
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8.0,
+                      bottom: 8.0,
+                      right: 4.0,
+                    ),
+                    child: FlatButton(
+                      child: Text("Login"),
+                      onPressed: _loginUser,
+                      color: Color(0xFFEF476F),
+                    ),
                   ),
-                  child: FlatButton(
-                    child: Text("Create Account"),
-                    onPressed: _createUser,
-                    color: Color(0xFFEF476F),
-                  ),
-                )
-              ],
-            ),
-          ],
+
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8.0,
+                      bottom: 8.0,
+                      left: 4.0,
+                    ),
+                    child: FlatButton(
+                      child: Text("Create Account"),
+                      onPressed: _createUser,
+                      color: Color(0xFFEF476F),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
