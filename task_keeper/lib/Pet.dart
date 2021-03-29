@@ -4,6 +4,7 @@ import 'Tasks.dart';
 import 'PetStore.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:task_keeper/PetDataModel.dart';
+import 'Database.dart';
 
 
 class Pet extends StatefulWidget {
@@ -12,6 +13,8 @@ class Pet extends StatefulWidget {
 }
 
 class _MyPetState extends State<Pet> {
+
+  DatabaseTool _dbTool = DatabaseTool();
 
   List<PetDataModel> data = [
     PetDataModel(
@@ -145,7 +148,8 @@ class _MyPetState extends State<Pet> {
                           child: Text("FOOD"),
                           color: Colors.black87,
                           onPressed: () async {
-                            data[0].value -= 2;
+                            await _dbTool.updateHunger(5);
+                            data[0].value = await _dbTool.getHunger();
                             setState(() {});
                           },
                         ),
@@ -155,7 +159,8 @@ class _MyPetState extends State<Pet> {
                           child: Text("WATER"),
                           color: Colors.black87,
                           onPressed: () async {
-                            data[1].value -= 2;
+                            await _dbTool.updateThirst(5);
+                            data[1].value = await _dbTool.getThirst();
                             setState(() {});
                           },
                         ),
@@ -165,7 +170,8 @@ class _MyPetState extends State<Pet> {
                           child: Text("TOYS"),
                           color: Colors.black87,
                           onPressed: () async {
-                            data[2].value -= 2;
+                            await _dbTool.updateHappiness(5);
+                            data[2].value = await _dbTool.getHappiness();
                             setState(() {});
                           },
                         ),
