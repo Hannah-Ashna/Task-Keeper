@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'Tasks.dart';
 import 'Pet.dart';
 
@@ -83,6 +84,20 @@ class PetStore extends StatelessWidget {
                 onTap: () {
                   // Do Nothing - Stay Put
                   Navigator.pop(context);
+                }
+            ),
+            ListTile(
+                title: Text('Sign Out',
+                  style: TextStyle(
+                      fontFamily: 'Aleo',
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black
+                  ),
+                ),
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
                 }
             ),
           ],
