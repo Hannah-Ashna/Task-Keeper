@@ -115,48 +115,48 @@ class _MyPetStore extends State<PetStore> {
       ),
 
       body: Center (
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: new ButtonBar(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    FlatButton(
-                      height: 60,
-                      minWidth: 115,
-                      child: Text("FOOD"),
-                      color: Colors.black87,
-                      onPressed: () async {
-                        _dbTool.updateFood(2);
-                        setState(() {});
-                      },
-                    ),
-                    FlatButton(
-                      height: 60,
-                      minWidth: 115,
-                      child: Text("WATER"),
-                      color: Colors.black87,
-                      onPressed: () async {
-                        _dbTool.updateWater(2);
-                        setState(() {});
-                      },
-                    ),
-                    FlatButton(
-                      height: 60,
-                      minWidth: 115,
-                      child: Text("TOYS"),
-                      color: Colors.black87,
-                      onPressed: () async {
-                        _dbTool.updateToys(4);
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: new ButtonBar(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  FlatButton(
+                    height: 60,
+                    minWidth: 115,
+                    child: Text("FOOD"),
+                    color: Colors.black87,
+                    onPressed: () async {
+                      _dbTool.updateFood(2, context);
+                      setState(() {});
+                    },
+                  ),
+                  FlatButton(
+                    height: 60,
+                    minWidth: 115,
+                    child: Text("WATER"),
+                    color: Colors.black87,
+                    onPressed: () async {
+                      _dbTool.updateWater(2, context);
+                      setState(() {});
+                    },
+                  ),
+                  FlatButton(
+                    height: 60,
+                    minWidth: 115,
+                    child: Text("TOYS"),
+                    color: Colors.black87,
+                    onPressed: () async {
+                      _dbTool.updateToys(4, context);
+                      setState(() {});
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
       ),
     );
   }

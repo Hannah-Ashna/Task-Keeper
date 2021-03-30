@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'models/List.dart';
@@ -102,7 +103,7 @@ class DatabaseTool {
     });
   }
 
-  Future<void> updateHunger(int value) async {
+  Future<void> updateHunger(int value, BuildContext context) async {
     Database _db = await database();
     List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
     if (inventoryMap[0]['food'] > 0) {
@@ -117,11 +118,11 @@ class DatabaseTool {
     }
 
     else {
-      print("No more food!");
+      _showMyDialog(context, "You've run out of food! You must purchase more ...");
     }
   }
 
-  Future<void> updateThirst(int value) async {
+  Future<void> updateThirst(int value, BuildContext context) async {
     Database _db = await database();
     List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
     if (inventoryMap[0]['water'] > 0) {
@@ -136,11 +137,11 @@ class DatabaseTool {
     }
 
     else {
-      print("No more water!");
+      _showMyDialog(context, "You've run out of water! You must purchase more ...");
     }
   }
 
-  Future<void> updateHappiness(int value) async {
+  Future<void> updateHappiness(int value, BuildContext context) async {
     Database _db = await database();
     List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
     if (inventoryMap[0]['toys'] > 0) {
@@ -155,7 +156,7 @@ class DatabaseTool {
     }
 
     else {
-      print("No more toys!");
+      _showMyDialog(context, "You've run out of toys! You must purchase more ...");
     }
   }
 
@@ -192,7 +193,7 @@ class DatabaseTool {
     });
   }
 
-  Future<void> updateFood (int cost) async {
+  Future<void> updateFood (int cost, BuildContext context) async {
     Database _db = await database();
     List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
     if (inventoryMap[0]['money'] >= cost){
@@ -203,11 +204,11 @@ class DatabaseTool {
     }
 
     else {
-      print("Not enough money!");
+      _showMyDialog(context, "Oh no! You've run out of money ... it's time to get more tasks done.");
     }
   }
 
-  Future<void> updateWater (int cost) async {
+  Future<void> updateWater (int cost, BuildContext context) async {
     Database _db = await database();
     List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
     if (inventoryMap[0]['money'] >= cost){
@@ -218,11 +219,11 @@ class DatabaseTool {
     }
 
     else {
-      print("Not enough money!");
+      _showMyDialog(context, "Oh no! You've run out of money ... it's time to get more tasks done.");
     }
   }
 
-  Future<void> updateToys (int cost) async {
+  Future<void> updateToys (int cost, BuildContext context) async {
     Database _db = await database();
     List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
     if (inventoryMap[0]['money'] >= cost){
@@ -233,7 +234,40 @@ class DatabaseTool {
     }
 
     else {
-      print("Not enough money!");
+      _showMyDialog(context, "Oh no! You've run out of money ... it's time to get more tasks done.");
     }
+  }
+
+  Future<void> getMoney () async {
+    Database _db = await database();
+    List<Map<String, dynamic>> petDataMap = await _db.query("inventory");
+    return petDataMap[0]['money'];
+  }
+
+  Future<void> _showMyDialog(BuildContext context, String text) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Alert:'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(text),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Accept'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

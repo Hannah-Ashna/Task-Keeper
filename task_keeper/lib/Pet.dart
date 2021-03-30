@@ -219,7 +219,7 @@ class _MyPetState extends State<Pet> {
                             child: Text("FOOD"),
                             color: Colors.black87,
                             onPressed: () async {
-                              await _dbTool.updateHunger(5);
+                              await _dbTool.updateHunger(5, context);
                               data[0].value = await _dbTool.getHunger();
                               setState(() {});
                             },
@@ -230,7 +230,7 @@ class _MyPetState extends State<Pet> {
                             child: Text("WATER"),
                             color: Colors.black87,
                             onPressed: () async {
-                              await _dbTool.updateThirst(5);
+                              await _dbTool.updateThirst(5, context);
                               data[1].value = await _dbTool.getThirst();
                               setState(() {});
                             },
@@ -241,7 +241,7 @@ class _MyPetState extends State<Pet> {
                             child: Text("TOYS"),
                             color: Colors.black87,
                             onPressed: () async {
-                              await _dbTool.updateHappiness(5);
+                              await _dbTool.updateHappiness(5, context);
                               data[2].value = await _dbTool.getHappiness();
                               setState(() {});
                             },
