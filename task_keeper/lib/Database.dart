@@ -7,6 +7,7 @@ import 'models/Inventory.dart';
 
 class DatabaseTool {
 
+  // Setup and init the Database
   Future<Database> database() async{
     return openDatabase(
         join(await getDatabasesPath(), 'taskKeeper.db'),
@@ -189,5 +190,50 @@ class DatabaseTool {
     Database _db = await database();
     await _db.insert('inventory', inventory.toMap(), conflictAlgorithm: ConflictAlgorithm.replace).then((value){
     });
+  }
+
+  Future<void> updateFood (int cost) async {
+    Database _db = await database();
+    List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
+    if (inventoryMap[0]['money'] >= cost){
+      int money = inventoryMap[0]['money'] - cost;
+      int food = inventoryMap[0]['food'] + 1;
+      await _db.rawUpdate("UPDATE inventory SET money = '$money'");
+      await _db.rawUpdate("UPDATE inventory SET food = '$food'");
+    }
+
+    else {
+      print("Not enough money!");
+    }
+  }
+
+  Future<void> updateWater (int cost) async {
+    Database _db = await database();
+    List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
+    if (inventoryMap[0]['money'] >= cost){
+      int money = inventoryMap[0]['money'] - cost;
+      int water = inventoryMap[0]['water'] + 1;
+      await _db.rawUpdate("UPDATE inventory SET money = '$money'");
+      await _db.rawUpdate("UPDATE inventory SET water = '$water'");
+    }
+
+    else {
+      print("Not enough money!");
+    }
+  }
+
+  Future<void> updateToys (int cost) async {
+    Database _db = await database();
+    List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
+    if (inventoryMap[0]['money'] >= cost){
+      int money = inventoryMap[0]['money'] - cost;
+      int toys = inventoryMap[0]['toys'] + 1;
+      await _db.rawUpdate("UPDATE inventory SET money = '$money'");
+      await _db.rawUpdate("UPDATE inventory SET toys = '$toys'");
+    }
+
+    else {
+      print("Not enough money!");
+    }
   }
 }
