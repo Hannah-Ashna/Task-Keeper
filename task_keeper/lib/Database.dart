@@ -73,6 +73,18 @@ class DatabaseTool {
   Future<void> updateTaskComplete(int id, int isDone) async {
     Database _db = await database();
     await _db.rawUpdate("UPDATE todo SET isDone = '$isDone' WHERE id = '$id'");
+
+    if (isDone == 1) {
+      List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
+      int money = inventoryMap[0]['money'] + 10;
+      await _db.rawUpdate("UPDATE inventory SET money = '$money'");
+    }
+
+    else {
+      List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
+      int money = inventoryMap[0]['money'] - 10;
+      await _db.rawUpdate("UPDATE inventory SET money = '$money'");
+    }
   }
 
   // PetData Table
@@ -91,23 +103,59 @@ class DatabaseTool {
 
   Future<void> updateHunger(int value) async {
     Database _db = await database();
-    List<Map<String, dynamic>> petDataMap = await _db.query("pet");
-    int hunger = petDataMap[0]['hunger'] + value;
-    await _db.rawUpdate("UPDATE pet SET hunger = '$hunger'");
+    List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
+    if (inventoryMap[0]['food'] > 0) {
+      // Update User's Inventory
+      int food = inventoryMap[0]['food'] - 1;
+      await _db.rawUpdate("UPDATE inventory SET food = '$food'");
+
+      // Update Pet Data
+      List<Map<String, dynamic>> petDataMap = await _db.query("pet");
+      int hunger = petDataMap[0]['hunger'] + value;
+      await _db.rawUpdate("UPDATE pet SET hunger = '$hunger'");
+    }
+
+    else {
+      print("No more food!");
+    }
   }
 
   Future<void> updateThirst(int value) async {
     Database _db = await database();
-    List<Map<String, dynamic>> petDataMap = await _db.query("pet");
-    int thirst = petDataMap[0]['thirst'] + value;
-    await _db.rawUpdate("UPDATE pet SET thirst = '$thirst'");
+    List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
+    if (inventoryMap[0]['water'] > 0) {
+      // Update User's Inventory
+      int water = inventoryMap[0]['water'] - 1;
+      await _db.rawUpdate("UPDATE inventory SET water = '$water'");
+
+      // Update Pet Data
+      List<Map<String, dynamic>> petDataMap = await _db.query("pet");
+      int thirst = petDataMap[0]['thirst'] + value;
+      await _db.rawUpdate("UPDATE pet SET thirst = '$thirst'");
+    }
+
+    else {
+      print("No more water!");
+    }
   }
 
   Future<void> updateHappiness(int value) async {
     Database _db = await database();
-    List<Map<String, dynamic>> petDataMap = await _db.query("pet");
-    int happiness = petDataMap[0]['happiness'] + value;
-    await _db.rawUpdate("UPDATE pet SET happiness = '$happiness'");
+    List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
+    if (inventoryMap[0]['toys'] > 0) {
+      // Update User's Inventory
+      int toys = inventoryMap[0]['toys'] - 1;
+      await _db.rawUpdate("UPDATE inventory SET toys = '$toys'");
+
+      // Update Pet Data
+      List<Map<String, dynamic>> petDataMap = await _db.query("pet");
+      int happiness = petDataMap[0]['happiness'] + value;
+      await _db.rawUpdate("UPDATE pet SET happiness = '$happiness'");
+    }
+
+    else {
+      print("No more toys!");
+    }
   }
 
   Future<int> getHunger() async {
