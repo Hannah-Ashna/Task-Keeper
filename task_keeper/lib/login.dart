@@ -33,8 +33,10 @@ class _LoginState extends State<Login> {
           email: _email,
           password: _password
       );
+      // Initialise Game Components - Inventory and Pet Details
       DatabaseTool _dbTool = DatabaseTool();
-      _dbTool.initHunger();
+      _dbTool.initPetData();
+      _dbTool.initInventory();
     } on FirebaseAuthException catch (e){
       print("Error: $e");
     } catch (e) {

@@ -86,20 +86,6 @@ class _MyPetState extends State<Pet> {
                 );
               },
             ),
-            ListTile(
-                title: Text('Sign Out',
-                  style: TextStyle(
-                      fontFamily: 'Aleo',
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25.0,
-                      color: Colors.black
-                  ),
-                ),
-                onTap: () async {
-                  await FirebaseAuth.instance.signOut();
-                }
-            ),
 
             ListTile(
               title: Text('My Pet',
@@ -132,6 +118,20 @@ class _MyPetState extends State<Pet> {
                     context,
                     MaterialPageRoute(builder:(context) => PetStore()),
                   );
+                }
+            ),
+            ListTile(
+                title: Text('Sign Out',
+                  style: TextStyle(
+                      fontFamily: 'Aleo',
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Colors.black
+                  ),
+                ),
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
                 }
             ),
           ],

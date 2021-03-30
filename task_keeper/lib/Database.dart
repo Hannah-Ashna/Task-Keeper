@@ -3,6 +3,7 @@ import 'package:path/path.dart';
 import 'models/List.dart';
 import 'models/ToDo.dart';
 import 'models/PetData.dart';
+import 'models/Inventory.dart';
 
 class DatabaseTool {
 
@@ -14,6 +15,7 @@ class DatabaseTool {
           await db.execute("CREATE TABLE list(id INTEGER PRIMARY KEY, title TEXT, description TEXT)");
           await db.execute("CREATE TABLE todo(id INTEGER PRIMARY KEY, title TEXT, taskID INTEGER, isDone INTEGER)");
           await db.execute("CREATE TABLE pet(id INTEGER PRIMARY KEY, hunger INTEGER, thirst INTEGER, happiness INTEGER)");
+          await db.execute("CREATE TABLE inventory(id INTEGER PRIMARY KEY, money INTEGER, food INTEGER, water INTEGER, toys INTEGER)");
           return db;
         },
         version: 1,
@@ -74,7 +76,7 @@ class DatabaseTool {
   }
 
   // PetData Table
-  Future<void> initHunger() async{
+  Future<void> initPetData() async{
     final petData = PetData(
       id: 0,
       hunger: 20,
@@ -124,5 +126,20 @@ class DatabaseTool {
     Database _db = await database();
     List<Map<String, dynamic>> petDataMap = await _db.query("pet");
     return petDataMap[0]['happiness'];
+  }
+
+  // Inventory Table
+  Future<void> initInventory() async {
+    final inventory = Inventory(
+      id: 0,
+      money: 10,
+      food: 5,
+      water: 5,
+      toys : 5,
+    );
+
+    Database _db = await database();
+    await _db.insert('inventory', inventory.toMap(), conflictAlgorithm: ConflictAlgorithm.replace).then((value){
+    });
   }
 }
