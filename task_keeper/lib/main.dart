@@ -3,12 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:task_keeper/Tasks.dart';
 import 'package:task_keeper/login.dart';
-import 'package:task_keeper/Database.dart';
+
 
 void main() async{
   runApp(MainApp());
-  DatabaseTool _dbTool = DatabaseTool();
-  _dbTool.initHunger();
 }
 
 class MainApp extends StatelessWidget {
@@ -21,7 +19,6 @@ class MainApp extends StatelessWidget {
     );
   }
 }
-
 
 class LandingPage extends StatelessWidget {
 

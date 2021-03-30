@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_keeper/Tasks.dart';
+import 'package:task_keeper/Database.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -17,6 +18,8 @@ class _LoginState extends State<Login> {
           email: _email,
           password: _password
       );
+      DatabaseTool _dbTool = DatabaseTool();
+      _dbTool.initHunger();
     } on FirebaseAuthException catch (e){
       print("Error: $e");
     } catch (e) {
@@ -30,6 +33,8 @@ class _LoginState extends State<Login> {
           email: _email,
           password: _password
       );
+      DatabaseTool _dbTool = DatabaseTool();
+      _dbTool.initHunger();
     } on FirebaseAuthException catch (e){
       print("Error: $e");
     } catch (e) {
