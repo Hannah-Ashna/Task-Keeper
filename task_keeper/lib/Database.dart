@@ -238,7 +238,7 @@ class DatabaseTool {
     }
   }
 
-  Future<void> getMoney () async {
+  Future<int> getMoney () async {
     Database _db = await database();
     List<Map<String, dynamic>> petDataMap = await _db.query("inventory");
     return petDataMap[0]['money'];

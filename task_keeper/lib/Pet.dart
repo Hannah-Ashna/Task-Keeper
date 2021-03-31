@@ -37,6 +37,7 @@ class _MyPetState extends State<Pet> {
 
   bool _isVisible = false;
   bool _isAwake = false;
+  int money;
   @override
   Widget build(BuildContext context) {
 
@@ -138,122 +139,158 @@ class _MyPetState extends State<Pet> {
         ),
       ),
 
-      body: Center(
-        child: new Column (
-          children: <Widget>[
+      body: SingleChildScrollView(
+        child: Center(
+          child: new Column (
+            children: <Widget>[
 
-            // Display only when Pet is Asleep
-            Visibility(
-              visible: !_isAwake,
-              child: Container(
-                margin: EdgeInsets.only(
-                  top: 15,
-                  bottom: 15,
-                  left: 25,
-                  right: 5,
+              // Display only when Pet is Asleep
+              Visibility(
+                visible: !_isAwake,
+                child: Container(
+                  margin: EdgeInsets.only(
+                    top: 15,
+                    bottom: 15,
+                    left: 25,
+                    right: 5,
+                  ),
+                  child: Image.asset("Images/KevinSleep.gif", width: 250, height: 250),
                 ),
-                child: Image.asset("Images/KevinSleep.gif", width: 250, height: 250),
               ),
-            ),
 
-            Visibility(
-              visible: !_isVisible,
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: new ButtonBar(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          FlatButton(
-                            height: 60,
-                            minWidth: 115,
-                            child: Text("Wake up Kevin!"),
-                            color: Colors.black87,
-                            onPressed: () async {
-                              data[0].value = await _dbTool.getHunger();
-                              data[1].value = await _dbTool.getThirst();
-                              data[2].value = await _dbTool.getHappiness();
-                              _isVisible = !_isVisible;
-                              _isAwake = !_isAwake;
-                              setState(() {});
-                            },
-                          ),],
+              Visibility(
+                visible: !_isVisible,
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: new ButtonBar(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            FlatButton(
+                              height: 60,
+                              minWidth: 115,
+                              child: Text("Wake up Kevin!"),
+                              color: Colors.black87,
+                              onPressed: () async {
+                                data[0].value = await _dbTool.getHunger();
+                                data[1].value = await _dbTool.getThirst();
+                                data[2].value = await _dbTool.getHappiness();
+                                money = await _dbTool.getMoney();
+                                _isVisible = !_isVisible;
+                                _isAwake = !_isAwake;
+                                setState(() {});
+                              },
+                            ),],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
 
-            // Display only when Pet is Awake
-            Visibility(
-            visible: _isAwake,
-              child: Container(
-                margin: EdgeInsets.all(15),
-                child: Image.asset("Images/KevinAwake.gif", width: 250, height: 250),
-              ),
-            ),
-
-            Visibility(
-              visible: _isVisible,
-              child: Container(
-                child: PetChart(data: data),
-              ),
-            ),
-
-            Visibility(
-              visible: _isVisible,
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: new ButtonBar(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          FlatButton(
-                            height: 60,
-                            minWidth: 115,
-                            child: Text("FOOD"),
-                            color: Colors.black87,
-                            onPressed: () async {
-                              await _dbTool.updateHunger(5, context);
-                              data[0].value = await _dbTool.getHunger();
-                              setState(() {});
-                            },
+              // Display only when Pet is Awake
+              Visibility(
+              visible: _isAwake,
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 5, right: 15.0),
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: TextButton.icon(
+                                onPressed: () async {
+                                  money = await _dbTool.getMoney();
+                                },
+                                icon: Icon(Icons.attach_money, color: Colors.black),
+                                label: Text(money.toString(),
+                                    style: TextStyle(color: Colors.black)),
+                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xff06D6A0))),
+                            ),
                           ),
-                          FlatButton(
-                            height: 60,
-                            minWidth: 115,
-                            child: Text("WATER"),
-                            color: Colors.black87,
-                            onPressed: () async {
-                              await _dbTool.updateThirst(5, context);
-                              data[1].value = await _dbTool.getThirst();
-                              setState(() {});
-                            },
-                          ),
-                          FlatButton(
-                            height: 60,
-                            minWidth: 115,
-                            child: Text("TOYS"),
-                            color: Colors.black87,
-                            onPressed: () async {
-                              await _dbTool.updateHappiness(5, context);
-                              data[2].value = await _dbTool.getHappiness();
-                              setState(() {});
-                            },
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+
+                      Container(
+                        margin: EdgeInsets.only(
+                            bottom: 10,
+                            right: 10,
+                            left: 10),
+                        child: Image.asset("Images/KevinAwake.gif", width: 250, height: 250),
+                      ),
+                    ],
+                  ),
+
+
                 ),
               ),
-            ),
-          ],
+
+              Visibility(
+                visible: _isVisible,
+                child: Container(
+                  child: PetChart(data: data),
+                ),
+              ),
+
+              Visibility(
+                visible: _isVisible,
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 5,
+                          right: 10,
+                          left: 10
+                        ),
+                        child: new ButtonBar(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            FlatButton(
+                              height: 60,
+                              minWidth: 115,
+                              child: Text("FOOD"),
+                              color: Colors.black87,
+                              onPressed: () async {
+                                await _dbTool.updateHunger(5, context);
+                                data[0].value = await _dbTool.getHunger();
+                                setState(() {});
+                              },
+                            ),
+                            FlatButton(
+                              height: 60,
+                              minWidth: 115,
+                              child: Text("WATER"),
+                              color: Colors.black87,
+                              onPressed: () async {
+                                await _dbTool.updateThirst(5, context);
+                                data[1].value = await _dbTool.getThirst();
+                                setState(() {});
+                              },
+                            ),
+                            FlatButton(
+                              height: 60,
+                              minWidth: 115,
+                              child: Text("TOYS"),
+                              color: Colors.black87,
+                              onPressed: () async {
+                                await _dbTool.updateHappiness(5, context);
+                                data[2].value = await _dbTool.getHappiness();
+                                setState(() {});
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
