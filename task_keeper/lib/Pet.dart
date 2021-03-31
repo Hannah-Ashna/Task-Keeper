@@ -148,12 +148,7 @@ class _MyPetState extends State<Pet> {
               Visibility(
                 visible: !_isAwake,
                 child: Container(
-                  margin: EdgeInsets.only(
-                    top: 15,
-                    bottom: 15,
-                    left: 50,
-                    right: 50,
-                  ),
+                  margin: EdgeInsets.all(30),
                   child: Image.asset("Images/KevinSleep.gif", width: 300, height: 300),
                 ),
               ),
