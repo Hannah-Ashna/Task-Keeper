@@ -151,10 +151,10 @@ class _MyPetState extends State<Pet> {
                   margin: EdgeInsets.only(
                     top: 15,
                     bottom: 15,
-                    left: 25,
-                    right: 5,
+                    left: 50,
+                    right: 50,
                   ),
-                  child: Image.asset("Images/KevinSleep.gif", width: 250, height: 250),
+                  child: Image.asset("Images/KevinSleep.gif", width: 300, height: 300),
                 ),
               ),
 

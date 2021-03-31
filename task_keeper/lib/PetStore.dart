@@ -13,6 +13,7 @@ class PetStore extends StatefulWidget {
 class _MyPetStore extends State<PetStore> {
 
   DatabaseTool _dbTool = DatabaseTool();
+  int money;
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +118,23 @@ class _MyPetStore extends State<PetStore> {
       body: Center (
         child: Column(
           children: <Widget>[
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 5, right: 15.0),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: TextButton.icon(
+                    onPressed: () async {
+                      money = await _dbTool.getMoney();
+                    },
+                    icon: Icon(Icons.attach_money, color: Colors.black),
+                    label: Text(money.toString(),
+                        style: TextStyle(color: Colors.black)),
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xff06D6A0))),
+                  ),
+                ),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.all(10),
               child: new ButtonBar(
