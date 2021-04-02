@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:task_keeper/Tasks.dart';
 import 'package:task_keeper/login.dart';
 
@@ -11,7 +12,6 @@ void main() async{
 
 class MainApp extends StatelessWidget {
   // This is the Root of the Application
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,7 +23,6 @@ class MainApp extends StatelessWidget {
 class LandingPage extends StatelessWidget {
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -50,6 +49,7 @@ class LandingPage extends StatelessWidget {
                 } else {
                   // User Status - is Logged in
                   return Tasks();
+
                 }
               }
 
@@ -71,4 +71,6 @@ class LandingPage extends StatelessWidget {
     );
   }
 }
+
+
 

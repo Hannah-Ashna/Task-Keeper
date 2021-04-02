@@ -238,6 +238,28 @@ class DatabaseTool {
     }
   }
 
+  Future<void> reduceFood () async {
+    Database _db = await database();
+    List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
+    int food = inventoryMap[0]['food'] - 4;
+    await _db.rawUpdate("UPDATE inventory SET food = '$food'");
+  }
+
+  Future<void> reduceWater () async {
+    Database _db = await database();
+    List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
+      int water = inventoryMap[0]['water'] - 4;
+      await _db.rawUpdate("UPDATE inventory SET water = '$water'");
+  }
+
+  Future<void> reduceToys () async {
+    Database _db = await database();
+    List<Map<String, dynamic>> inventoryMap = await _db.query("inventory");
+    int toys = inventoryMap[0]['toys'] - 4;
+    await _db.rawUpdate("UPDATE inventory SET toys = '$toys'");
+
+  }
+
   Future<int> getMoney () async {
     Database _db = await database();
     List<Map<String, dynamic>> petDataMap = await _db.query("inventory");
