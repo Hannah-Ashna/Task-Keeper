@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:task_keeper/Widgets.dart';
 import 'package:task_keeper/TaskPage.dart';
 import 'package:task_keeper/Database.dart';
+import 'package:task_keeper/main.dart';
 import 'Pet.dart';
 import 'PetStore.dart';
 
@@ -111,6 +112,10 @@ class _TasksState extends State <Tasks> {
                 ),
                 onTap: () async {
                   await FirebaseAuth.instance.signOut();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder:(context) => LandingPage()),
+                  );
                 }
             ),
           ],

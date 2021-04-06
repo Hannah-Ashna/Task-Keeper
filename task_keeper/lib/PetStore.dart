@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'Database.dart';
 import 'Tasks.dart';
 import 'Pet.dart';
+import 'main.dart';
 
 class PetStore extends StatefulWidget {
   @override
@@ -111,6 +112,10 @@ class _MyPetStore extends State<PetStore> {
                 ),
                 onTap: () async {
                   await FirebaseAuth.instance.signOut();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder:(context) => LandingPage()),
+                  );
                 }
             ),
           ],
