@@ -39,6 +39,10 @@ class _LoginState extends State<Login> {
       DatabaseTool _dbTool = DatabaseTool();
       _dbTool.initPetData();
       _dbTool.initInventory();
+
+      var newDate = DateTime.now();
+      await _dbTool.setLoginData(newDate.toString());
+
     } on FirebaseAuthException catch (e){
       print("Error: $e");
     } catch (e) {

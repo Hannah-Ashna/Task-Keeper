@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:task_keeper/PetChart.dart';
 import 'Tasks.dart';
 import 'PetStore.dart';
+import 'main.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:task_keeper/PetDataModel.dart';
 import 'Database.dart';
@@ -133,6 +134,10 @@ class _MyPetState extends State<Pet> {
                 ),
                 onTap: () async {
                   await FirebaseAuth.instance.signOut();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder:(context) => LandingPage()),
+                  );
                 }
             ),
           ],
@@ -169,10 +174,30 @@ class _MyPetState extends State<Pet> {
                               child: Text("Wake up Kevin!"),
                               color: Colors.black87,
                               onPressed: () async {
+
+                                var oldDateStr = await _dbTool.getLoginData();
+                                DateTime oldDate = DateTime.parse(oldDateStr);
+                                var oldDateArr = oldDateStr.split(' ');
+                                print("Old Date $oldDate");
+
+                                DateTime newDate = DateTime.now();
+                                var newDateStr = newDate.toString();
+                                var newDateArr = newDateStr.split(' ');
+                                print("New Date $newDateArr");
+
+                                if (newDate.difference(oldDate).inDays > 0) {
+                                  await _dbTool.reduceHunger(newDate.difference(oldDate).inDays * 2);
+                                  await _dbTool.reduceThirst(newDate.difference(oldDate).inDays * 2);
+                                  await _dbTool.reduceHappiness(newDate.difference(oldDate).inDays * 2);
+                                  print("Update Stats");
+                                  await _dbTool.setLoginData(newDateStr);
+                                }
+
                                 data[0].value = await _dbTool.getHunger();
                                 data[1].value = await _dbTool.getThirst();
                                 data[2].value = await _dbTool.getHappiness();
                                 money = await _dbTool.getMoney();
+
                                 _isVisible = !_isVisible;
                                 _isAwake = !_isAwake;
                                 setState(() {});

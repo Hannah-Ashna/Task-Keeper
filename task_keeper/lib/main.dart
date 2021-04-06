@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:task_keeper/Database.dart';
 import 'package:task_keeper/Tasks.dart';
 import 'package:task_keeper/login.dart';
+import 'dart:core';
 
 
 void main() async{
@@ -46,10 +48,10 @@ class LandingPage extends StatelessWidget {
                 if (user == null) {
                   // User Status - not Logged in
                   return Login();
+
                 } else {
                   // User Status - is Logged in
                   return Tasks();
-
                 }
               }
 

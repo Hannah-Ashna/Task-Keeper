@@ -4,9 +4,10 @@ class Inventory {
   final int food;
   final int water;
   final int toys;
+  final String login;
 
   // Class Constructor
-  Inventory({this.id, this.money, this.food, this.water, this.toys});
+  Inventory({this.id, this.money, this.food, this.water, this.toys, this.login});
 
   Map<String, dynamic> toMap(){
     return {
@@ -15,6 +16,7 @@ class Inventory {
       'food' : food,
       'water' : water,
       'toys' : toys,
+      'login' : login,
     };
   }
 }
