@@ -131,81 +131,94 @@ class _MyPetStore extends State<PetStore> {
         ),
       ),
 
-      body: Center (
-        child: Column(
-          children: <Widget>[
+      body: SingleChildScrollView(
+        child: Center (
+          child: Column(
+            children: <Widget>[
 
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 5, right: 15.0),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: TextButton.icon(
-                    onPressed: () async {
-                      money = await _dbTool.getMoney();
-                      setState(() {});
-                    },
-                    icon: Icon(Icons.attach_money, color: Colors.black),
-                    label: Text(money.toString(),
-                        style: TextStyle(color: Colors.black)),
-                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xff06D6A0))),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 5, right: 15.0),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: TextButton.icon(
+                      onPressed: () async {
+                        money = await _dbTool.getMoney();
+                        setState(() {});
+                      },
+                      icon: Icon(Icons.attach_money, color: Colors.black),
+                      label: Text(money.toString(),
+                          style: TextStyle(color: Colors.black)),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xff06D6A0))),
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            Container(
-              child: Container(
-                margin: EdgeInsets.all(30),
-                child: Image.asset("Images/KevinSleep.gif", width: 300, height: 300),
+              Container(
+                child: Container(
+                  margin: EdgeInsets.all(30),
+                  child: Image.asset("Images/Pet.png", width: 200, height: 200),
+                ),
               ),
-            ),
 
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: new ButtonBar(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black87,
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                    ),
-                    child: Text("FOOD"),
-                    onPressed: () async {
-                      _dbTool.updateFood(2, context);
-                      money = await _dbTool.getMoney();
-                      setState(() {});
-                    },
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.black87,
+                          ),
+                          child: Text(r"FOOD - $2"),
+                          onPressed: () async {
+                            _dbTool.updateFood(2, context);
+                            money = await _dbTool.getMoney();
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.black87,
+                          ),
+                          child: Text(r"WATER - $2"),
+                          onPressed: () async {
+                            _dbTool.updateWater(2, context);
+                            money = await _dbTool.getMoney();
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.black87,
+                          ),
+                          child: Text(r"TOYS - $4"),
+                          onPressed: () async {
+                            _dbTool.updateToys(4, context);
+                            money = await _dbTool.getMoney();
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black87,
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                    ),
-                    child: Text("WATER"),
-                    onPressed: () async {
-                      _dbTool.updateWater(2, context);
-                      money = await _dbTool.getMoney();
-                      setState(() {});
-                    },
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black87,
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                    ),
-                    child: Text("TOYS"),
-                    onPressed: () async {
-                      _dbTool.updateToys(4, context);
-                      money = await _dbTool.getMoney();
-                      setState(() {});
-                    },
-                  ),
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

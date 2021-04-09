@@ -254,8 +254,11 @@ class _MyPetState extends State<Pet> {
 
               Visibility(
                 visible: _isVisible,
-                child: Container(
-                  child: Column(
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
@@ -269,7 +272,7 @@ class _MyPetState extends State<Pet> {
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.black87,
-                                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                               ),
                               child: Text("FOOD"),
                               onPressed: () async {
@@ -281,7 +284,7 @@ class _MyPetState extends State<Pet> {
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.black87,
-                                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                               ),
                               //height: 60,
                               //minWidth: 115,
@@ -295,7 +298,7 @@ class _MyPetState extends State<Pet> {
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   primary: Colors.black87,
-                                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                               ),
                               child: Text("TOYS"),
                               onPressed: () async {
