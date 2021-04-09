@@ -8,6 +8,33 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
+void showAlertDialog(BuildContext context, String text) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Alert:'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(text),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Accept'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 class _LoginState extends State<Login> {
   String _email;
   String _password;
@@ -23,9 +50,9 @@ class _LoginState extends State<Login> {
       _dbTool.initPetData();
       _dbTool.initInventory();
     } on FirebaseAuthException catch (e){
-      print("Error: $e");
+      showAlertDialog(context, "Error!\n$e");
     } catch (e) {
-      print("Error: $e");
+      showAlertDialog(context, "Error! Account could not be created");
     }
   }
 
@@ -44,9 +71,9 @@ class _LoginState extends State<Login> {
       await _dbTool.setLoginData(newDate.toString());
 
     } on FirebaseAuthException catch (e){
-      print("Error: $e");
+      showAlertDialog(context, "Error! Invalid Credentials");
     } catch (e) {
-      print("Error: $e");
+      showAlertDialog(context, "Error! Invalid Credentials");
     }
   }
 
@@ -76,6 +103,7 @@ class _LoginState extends State<Login> {
               ),
 
               TextField(
+                obscureText: true,
                 onChanged: (value){
                   _password = value;
                 },
