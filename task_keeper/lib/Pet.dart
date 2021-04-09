@@ -266,33 +266,38 @@ class _MyPetState extends State<Pet> {
                         child: new ButtonBar(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            FlatButton(
-                              height: 60,
-                              minWidth: 115,
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.black87,
+                                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                              ),
                               child: Text("FOOD"),
-                              color: Colors.black87,
                               onPressed: () async {
                                 await _dbTool.updateHunger(5, context);
                                 data[0].value = await _dbTool.getHunger();
                                 setState(() {});
                               },
                             ),
-                            FlatButton(
-                              height: 60,
-                              minWidth: 115,
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.black87,
+                                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                              ),
+                              //height: 60,
+                              //minWidth: 115,
                               child: Text("WATER"),
-                              color: Colors.black87,
                               onPressed: () async {
                                 await _dbTool.updateThirst(5, context);
                                 data[1].value = await _dbTool.getThirst();
                                 setState(() {});
                               },
                             ),
-                            FlatButton(
-                              height: 60,
-                              minWidth: 115,
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.black87,
+                                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                              ),
                               child: Text("TOYS"),
-                              color: Colors.black87,
                               onPressed: () async {
                                 await _dbTool.updateHappiness(5, context);
                                 data[2].value = await _dbTool.getHappiness();

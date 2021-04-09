@@ -134,6 +134,7 @@ class _MyPetStore extends State<PetStore> {
       body: Center (
         child: Column(
           children: <Widget>[
+
             Container(
               child: Padding(
                 padding: const EdgeInsets.only(top: 5, right: 15.0),
@@ -152,38 +153,49 @@ class _MyPetStore extends State<PetStore> {
                 ),
               ),
             ),
+
+            Container(
+              child: Container(
+                margin: EdgeInsets.all(30),
+                child: Image.asset("Images/KevinSleep.gif", width: 300, height: 300),
+              ),
+            ),
+
             Padding(
               padding: EdgeInsets.all(10),
               child: new ButtonBar(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  FlatButton(
-                    height: 60,
-                    minWidth: 115,
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black87,
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    ),
                     child: Text("FOOD"),
-                    color: Colors.black87,
                     onPressed: () async {
                       _dbTool.updateFood(2, context);
                       money = await _dbTool.getMoney();
                       setState(() {});
                     },
                   ),
-                  FlatButton(
-                    height: 60,
-                    minWidth: 115,
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black87,
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    ),
                     child: Text("WATER"),
-                    color: Colors.black87,
                     onPressed: () async {
                       _dbTool.updateWater(2, context);
                       money = await _dbTool.getMoney();
                       setState(() {});
                     },
                   ),
-                  FlatButton(
-                    height: 60,
-                    minWidth: 115,
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black87,
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    ),
                     child: Text("TOYS"),
-                    color: Colors.black87,
                     onPressed: () async {
                       _dbTool.updateToys(4, context);
                       money = await _dbTool.getMoney();
