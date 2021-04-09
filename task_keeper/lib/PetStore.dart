@@ -10,17 +10,26 @@ class PetStore extends StatefulWidget {
   _MyPetStore createState() => _MyPetStore();
 }
 
-
 class _MyPetStore extends State<PetStore> {
 
   DatabaseTool _dbTool = DatabaseTool();
   int money;
 
+
+  @override
+  void initState() {
+    updateMoney();
+    super.initState();
+  }
+
+  void updateMoney() async {
+    money = await _dbTool.getMoney();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         backgroundColor: Color(0xff26547C),
@@ -133,6 +142,7 @@ class _MyPetStore extends State<PetStore> {
                   child: TextButton.icon(
                     onPressed: () async {
                       money = await _dbTool.getMoney();
+                      setState(() {});
                     },
                     icon: Icon(Icons.attach_money, color: Colors.black),
                     label: Text(money.toString(),
@@ -154,6 +164,7 @@ class _MyPetStore extends State<PetStore> {
                     color: Colors.black87,
                     onPressed: () async {
                       _dbTool.updateFood(2, context);
+                      money = await _dbTool.getMoney();
                       setState(() {});
                     },
                   ),
@@ -164,6 +175,7 @@ class _MyPetStore extends State<PetStore> {
                     color: Colors.black87,
                     onPressed: () async {
                       _dbTool.updateWater(2, context);
+                      money = await _dbTool.getMoney();
                       setState(() {});
                     },
                   ),
@@ -174,6 +186,7 @@ class _MyPetStore extends State<PetStore> {
                     color: Colors.black87,
                     onPressed: () async {
                       _dbTool.updateToys(4, context);
+                      money = await _dbTool.getMoney();
                       setState(() {});
                     },
                   ),
@@ -185,4 +198,5 @@ class _MyPetStore extends State<PetStore> {
       ),
     );
   }
+
 }

@@ -178,18 +178,15 @@ class _MyPetState extends State<Pet> {
                                 var oldDateStr = await _dbTool.getLoginData();
                                 DateTime oldDate = DateTime.parse(oldDateStr);
                                 var oldDateArr = oldDateStr.split(' ');
-                                print("Old Date $oldDate");
 
                                 DateTime newDate = DateTime.now();
                                 var newDateStr = newDate.toString();
                                 var newDateArr = newDateStr.split(' ');
-                                print("New Date $newDateArr");
 
                                 if (newDate.difference(oldDate).inDays > 0) {
                                   await _dbTool.reduceHunger(newDate.difference(oldDate).inDays * 2);
                                   await _dbTool.reduceThirst(newDate.difference(oldDate).inDays * 2);
                                   await _dbTool.reduceHappiness(newDate.difference(oldDate).inDays * 2);
-                                  print("Update Stats");
                                   await _dbTool.setLoginData(newDateStr);
                                 }
 
