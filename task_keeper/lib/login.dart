@@ -41,6 +41,7 @@ class _LoginState extends State<Login> {
 
   Future<void> _createUser() async {
     try {
+      showAlertDialog(context, "Creating user ...");
       UserCredential userCredentials = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _email,
           password: _password
@@ -49,6 +50,8 @@ class _LoginState extends State<Login> {
       DatabaseTool _dbTool = DatabaseTool();
       _dbTool.initPetData();
       _dbTool.initInventory();
+
+
     } on FirebaseAuthException catch (e){
       showAlertDialog(context, "Error!\n$e");
     } catch (e) {
@@ -58,6 +61,7 @@ class _LoginState extends State<Login> {
 
   Future<void> _loginUser() async {
     try {
+      showAlertDialog(context, "Logging in ...");
       UserCredential userCredentials = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _email,
           password: _password
@@ -69,6 +73,7 @@ class _LoginState extends State<Login> {
 
       var newDate = DateTime.now();
       await _dbTool.setLoginData(newDate.toString());
+
 
     } on FirebaseAuthException catch (e){
       showAlertDialog(context, "Error! Invalid Credentials");
