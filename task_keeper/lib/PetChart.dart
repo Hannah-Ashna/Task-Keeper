@@ -28,7 +28,7 @@ class PetChart extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                "Kenny the Chicken",
+                "Kevin the Chicken",
                 style: Theme.of(context).textTheme.body2,
               ),
               Expanded(
