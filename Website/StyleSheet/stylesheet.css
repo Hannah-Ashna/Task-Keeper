@@ -24,6 +24,9 @@ body {
   max-width: 42em;
 }
 
+.cover-container-roles {
+  max-width: 60em;
+}
 
 /*
  * Header
@@ -63,4 +66,8 @@ body {
 .copyright:hover{
   text-decoration: none;
   color:turquoise;
+}
+
+.card{
+  color: black;
 }
