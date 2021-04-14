@@ -17,8 +17,7 @@
  */
 
 body {
-  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+  background-color: #333;
 }
 
 .cover-container {
@@ -54,4 +53,14 @@ body {
 
 .lead{
 	text-align:left;
+}
+
+.copyright{
+  text-decoration: none;
+  color: white;
+}
+
+.copyright:hover{
+  text-decoration: none;
+  color:turquoise;
 }
