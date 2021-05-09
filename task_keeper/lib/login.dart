@@ -51,6 +51,8 @@ class _LoginState extends State<Login> {
       _dbTool.initPetData();
       _dbTool.initInventory();
 
+      var newDate = DateTime.now();
+      await _dbTool.setLoginData(newDate.toString());
 
     } on FirebaseAuthException catch (e){
       showAlertDialog(context, "Error!\n$e");
